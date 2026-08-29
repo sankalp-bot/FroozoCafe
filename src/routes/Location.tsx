@@ -13,8 +13,8 @@ export function LocationPage() {
   return (
     <>
       <SiteHeader />
-      <main className="bg-cream">
-        <section className="bg-teal-deep px-5 py-20 text-cream">
+      <main id="main" className="bg-char text-cream">
+        <section className="bg-teal px-5 py-20 text-cream">
           <div className="mx-auto max-w-7xl">
             <p className="ticket-label text-gold">Location & contact</p>
             <h1 className="mt-4 text-6xl md:text-8xl">
@@ -27,25 +27,25 @@ export function LocationPage() {
         <section className="mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-2">
           <div>
             <dl className="space-y-6">
-              <div className="border-b border-char/15 pb-5">
-                <dt className="ticket-label text-teal">Address</dt>
-                <dd className="mt-2 font-display text-2xl">{outlet.address}</dd>
+              <div className="border-b border-cream/15 pb-5">
+                <dt className="ticket-label text-brass">Address</dt>
+                <dd className="mt-2 font-display text-2xl italic">{outlet.address}</dd>
               </div>
-              <div className="border-b border-char/15 pb-5">
-                <dt className="ticket-label text-teal">Phone</dt>
-                <dd className="mt-2 font-mono text-lg">
-                  <a href={outlet.phoneHref} className="hover:text-teal">
+              <div className="border-b border-cream/15 pb-5">
+                <dt className="ticket-label text-brass">Phone</dt>
+                <dd className="mt-2 text-lg">
+                  <a href={outlet.phoneHref} className="hover:text-red">
                     {outlet.phone}
                   </a>
                 </dd>
               </div>
-              <div className="border-b border-char/15 pb-5">
-                <dt className="ticket-label text-teal">Hours</dt>
-                <dd className="mt-2 font-mono text-lg">{outlet.hours}</dd>
+              <div className="border-b border-cream/15 pb-5">
+                <dt className="ticket-label text-brass">Hours</dt>
+                <dd className="mt-2 text-lg">{outlet.hours}</dd>
               </div>
               <div>
-                <dt className="ticket-label text-teal">Good to know</dt>
-                <dd className="mt-2 text-sm text-smoke">
+                <dt className="ticket-label text-brass">Good to know</dt>
+                <dd className="mt-2 text-sm text-cream/65">
                   Froozo Cafe, Madhavadhara is an independently run Froozo
                   franchise outlet in Visakhapatnam. For anything about this cafe
                   — orders, bookings, feedback — call us directly on the number
@@ -58,20 +58,43 @@ export function LocationPage() {
               href={outlet.maps}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-block font-mono text-xs uppercase tracking-[0.18em] text-teal underline underline-offset-4"
+              className="mt-4 inline-block text-xs font-semibold uppercase tracking-[0.18em] text-red underline underline-offset-4"
             >
               Open in Google Maps
             </a>
           </div>
 
-          <div className="min-h-[26rem] border-2 border-char hard-shadow">
+          <div className="min-h-[26rem] border border-brass/30 bg-char p-2">
             <iframe
               title="Map to Froozo Cafe Madhavadhara, Visakhapatnam"
               src={outlet.mapEmbed}
               loading="lazy"
-              className="h-full min-h-[26rem] w-full"
+              className="h-full min-h-[25rem] w-full grayscale-[0.35] contrast-[0.95] brightness-90"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+        </section>
+
+        <section className="bg-teal-deep px-5 py-20 text-cream">
+          <div className="mx-auto max-w-7xl">
+            <p className="ticket-label text-brass">Part of the Froozo family</p>
+            <p className="mt-4 max-w-2xl text-sm text-cream/75">
+              We're one independently run Froozo outlet in Madhavadhara,
+              Visakhapatnam. The numbers below belong to the wider Froozo brand
+              across India — not to this single cafe.
+            </p>
+            <div className="mt-10 grid gap-8 sm:grid-cols-3">
+              {[
+                ["90+", "Froozo outlets nationwide"],
+                ["19+", "Cities across India"],
+                ["12", "States"],
+              ].map(([n, l]) => (
+                <div key={l} className="border-t-2 border-brass/40 pt-4">
+                  <p className="font-display text-6xl italic">{n}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-cream/70">{l}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>

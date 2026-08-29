@@ -1,86 +1,61 @@
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { outlet } from "@/data/menu";
-
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/menu", label: "Menu" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/location", label: "Location" },
-] as const;
+import froozoMark from "@/assets/froozo-mark.png";
+import { AnimatedNavDock } from "./AnimatedNavDock";
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const [solid, setSolid] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Fully transparent only at the top of the hero, where the photo sits
+  // behind it — everywhere else (scrolled, or any other page) there's real
+  // content behind the header's gaps, so it needs its own backing or that
+  // content bleeds through as you scroll.
+  const transparent = pathname === "/" && !solid;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-cream/15 bg-char/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3">
-        <Link to="/" className="group flex items-center gap-3">
-          <span className="grid size-9 place-items-center rounded-full bg-teal text-cream">
-            <span className="size-2.5 rounded-full bg-brass" />
-          </span>
-          <span className="leading-none">
-            <span className="block font-display text-xl font-extrabold text-cream">
-              FROOZO
-            </span>
-            <span className="ticket-label block text-brass">Madhavadhara</span>
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-brass focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:uppercase focus:tracking-[0.18em] focus:text-char"
+      >
+        Skip to content
+      </a>
+      <header
+        className={`sticky top-0 z-50 h-24 transition-colors duration-500 md:h-28 ${
+          transparent ? "bg-transparent" : "header-glass"
+        }`}
+      >
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-2 px-3 md:gap-6 md:px-10">
+        <Link to="/" className="flex shrink-0 flex-col items-start gap-1 text-cream">
+          <img src={froozoMark} alt="" className="h-6 w-auto sm:h-7 md:h-9" />
+          <span className="font-display text-base font-black uppercase tracking-[0.08em] sm:text-lg md:text-xl">
+            Froozo
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              activeProps={{ className: "bg-cream/10 text-brass" }}
-              className="rounded-sm px-3 py-2 font-mono text-xs uppercase tracking-[0.18em] text-cream/75 transition-colors hover:text-brass"
-            >
-              {l.label}
-            </Link>
-          ))}
-          <a
-            href={outlet.zomato}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-3 rounded-sm bg-red px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-cream transition-transform hover:-translate-y-0.5"
-          >
-            Order now
-          </a>
-        </nav>
+        <AnimatedNavDock />
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle navigation"
-          className="rounded-sm border border-cream/25 p-2 text-cream md:hidden"
+        <a
+          href={outlet.zomato}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden items-center gap-2 rounded-full border border-cream/50 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-cream transition-all hover:border-red active:scale-95 md:inline-flex"
         >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+          Order now
+          <ArrowRight className="size-3.5 text-red" />
+        </a>
       </div>
-
-      {open && (
-        <nav className="border-t border-cream/15 bg-char px-5 pb-5 md:hidden">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              onClick={() => setOpen(false)}
-              className="block border-b border-cream/10 py-3 font-display text-2xl text-cream"
-            >
-              {l.label}
-            </Link>
-          ))}
-          <a
-            href={outlet.zomato}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 block rounded-sm bg-red px-4 py-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-cream"
-          >
-            Order now
-          </a>
-        </nav>
-      )}
-    </header>
+      </header>
+    </>
   );
 }

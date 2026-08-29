@@ -63,8 +63,8 @@ export function GalleryPage() {
   return (
     <>
       <SiteHeader />
-      <main className="bg-cream">
-        <section className="bg-teal-deep px-5 py-20 text-cream">
+      <main id="main" className="bg-char text-cream">
+        <section className="bg-teal px-5 py-20 text-cream">
           <div className="mx-auto max-w-7xl">
             <p className="ticket-label text-brass">Gallery</p>
             <h1 className="mt-4 text-6xl md:text-8xl">
@@ -83,22 +83,22 @@ export function GalleryPage() {
           <section
             key={g.id}
             id={g.id}
-            className={`px-5 py-16 ${gi % 2 === 1 ? "bg-oak/10" : ""}`}
+            className={`px-5 py-16 ${gi % 2 === 1 ? "bg-brass/10" : ""}`}
           >
             <div className="mx-auto max-w-7xl">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="ticket-label text-teal">0{gi + 1}</p>
+                  <p className="ticket-label text-brass">0{gi + 1}</p>
                   <h2 className="mt-2 text-4xl md:text-5xl">{g.title}</h2>
                 </div>
-                <p className="max-w-md text-sm text-smoke">{g.blurb}</p>
+                <p className="max-w-md text-sm text-cream/65">{g.blurb}</p>
               </div>
 
               <div className="mt-10 grid auto-rows-[12rem] grid-cols-2 gap-4 md:grid-cols-4">
                 {g.tiles.map((t) => (
                   <figure
                     key={t.label}
-                    className={`group relative flex items-end overflow-hidden border border-char/20 ${t.span ?? ""}`}
+                    className={`group relative flex items-end overflow-hidden border border-cream/15 ${t.span ?? ""}`}
                   >
                     <img
                       src={t.img}
@@ -107,7 +107,7 @@ export function GalleryPage() {
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-char/80 via-char/0 to-char/0" />
-                    <figcaption className="relative p-5 font-mono text-[0.68rem] uppercase tracking-[0.18em] text-cream">
+                    <figcaption className="relative p-5 text-[0.68rem] uppercase tracking-[0.18em] text-cream">
                       {t.label}
                     </figcaption>
                   </figure>
@@ -117,15 +117,15 @@ export function GalleryPage() {
           </section>
         ))}
 
-        <section className="border-t border-char/15 px-5 py-16">
+        <section className="border-t border-cream/15 px-5 py-16">
           <div className="mx-auto max-w-7xl">
             <h2 className="text-4xl md:text-5xl">See today's plates</h2>
-            <p className="mt-3 max-w-lg text-sm text-smoke">
-              Our Instagram, <span className="font-mono">@froozocafe_vizag</span>,
+            <p className="mt-3 max-w-lg text-sm text-cream/65">
+              Our Instagram, <span className="font-semibold">@froozocafe_vizag</span>,
               has the freshest photos from this outlet.
             </p>
             <OrderButtons className="mt-8" />
-            <p className="mt-6 font-mono text-xs uppercase tracking-[0.16em] text-smoke">
+            <p className="mt-6 text-xs uppercase tracking-[0.16em] text-cream/65">
               {outlet.address}
             </p>
           </div>
