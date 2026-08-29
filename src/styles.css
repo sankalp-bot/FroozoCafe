@@ -61,8 +61,8 @@
   --radius: 0.25rem;
 
   /* Walnut — secondary/structural surfaces (nav, panels, depth) */
-  --char: #3a2923;
-  --char-soft: #4a3327;
+  --char: #030303;
+  --char-soft: #967366;
   /* Warm ivory — primary text/headline color, not pure white */
   --cream: #f4ebdd;
   /* Deep teal — main environmental/background color */
